@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第八、九課及生詞綜合測驗 (41題)</title>
+    <style>
+        body {
+            font-family: "Microsoft JhengHei", "Heiti TC", Arial, sans-serif;
+            background-color: #f4f6f7;
+            color: #2c3e50;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            color: #2980b9;
+            margin: 0;
+            font-size: 2em;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            margin-top: 10px;
+            font-size: 1.1em;
+        }
+
+        .question-card {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            transition: transform 0.2s;
+        }
+
+        .question-card:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .question-text {
+            font-size: 1.15em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 2px solid #ecf0f1;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: #f7f9f9;
+            border-color: #bdc3c7;
+        }
+
+        .option-label input[type="radio"] {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 0.95em;
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 5px solid #28a745;
+        }
+
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 5px solid #dc3545;
+        }
+
+        .explanation {
+            display: block;
+            margin-top: 5px;
+            font-style: italic;
+            color: #666;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-submit:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        #score-area {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            display: none;
+        }
+
+        #score-text {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>第八、九課及生詞綜合測驗</h1>
+        <div class="subtitle">總共 41 題，請選出最適合填入括號中的詞彙</div>
+    </header>
+
+    <form id="quiz-form">
+        </form>
+
+    <button type="button" class="btn-submit" onclick="checkAnswers()">送出答案</button>
+
+    <div id="score-area">
+        <div id="score-text"></div>
+    </div>
+</div>
+
+<script>
+    // 題目資料庫 (整合了 L8 生詞小考 16 題 + L8L9 詞彙 25 題)
+    const questions = [
+        // --- 第一部分：L8 生詞小考 (16題) ---
+        {
+            q: "學校已經( )學生和老師星期五因為運動會所以全校放假。",
+            options: ["告知", "證明", "寄託"],
+            answer: "告知",
+            explain: "「告知」意思是通知、告訴。句意是學校通知大家放假。"
+        },
+        {
+            q: "你遲到的( )居然是忘了帶書包，老師不會相信的，太站不住腳了。",
+            options: ["風聲", "理由", "絕望"],
+            answer: "理由",
+            explain: "「理由」是用來解釋原因的。"
+        },
+        {
+            q: "這件衣服感覺不便宜，( )要一千塊。",
+            options: ["為止", "起碼", "樂觀"],
+            answer: "起碼",
+            explain: "「起碼」表示最低限度，至少。"
+        },
+        {
+            q: "聽到這個那位明星已經結婚還有小孩的消息，大家都很( )。",
+            options: ["震驚", "安心", "樂觀"],
+            answer: "震驚",
+            explain: "「震驚」表示非常驚訝。"
+        },
+        {
+            q: "醫生說他只能再活一年，讓他心裡很( )。",
+            options: ["絕望", "樂觀", "自願"],
+            answer: "絕望",
+            explain: "「絕望」表示完全沒有希望。"
+        },
+        {
+            q: "你別太( )，事情總會有辦法的。",
+            options: ["震驚", "悲觀", "撕破臉"],
+            answer: "悲觀",
+            explain: "「悲觀」是看事情只看壞的一面，與後句「總會有辦法的」對應。"
+        },
+        {
+            q: "你要有學生證才能( )你是學生。",
+            options: ["告知", "證明", "寄託"],
+            answer: "證明",
+            explain: "「證明」指用憑據來表明事實。"
+        },
+        {
+            q: "天氣太差，我們的旅行計畫( )。",
+            options: ["泡湯了", "撕破臉", "安心"],
+            answer: "泡湯了",
+            explain: "「泡湯了」比喻計畫失敗或落空。"
+        },
+        {
+            q: "他( )幫忙打掃學校的教室。",
+            options: ["悲觀", "自願", "起碼"],
+            answer: "自願",
+            explain: "「自願」指自己願意去做。"
+        },
+        {
+            q: "活動到下午五點( )，現在還來得及。",
+            options: ["起碼", "為止", "泡湯了"],
+            answer: "為止",
+            explain: "「為止」表示截止或終止。"
+        },
+        {
+            q: "聽到店裡可能要關門的( )，員工們都在討論未來的打算。",
+            options: ["理由", "風聲", "證明"],
+            answer: "風聲",
+            explain: "「風聲」指傳聞或消息。"
+        },
+        {
+            q: "他把希望( )在孩子身上。",
+            options: ["寄託", "告知", "證明"],
+            answer: "寄託",
+            explain: "「寄託」指把理想或希望放在某人或某事物上。"
+        },
+        {
+            q: "雖然工作有困難，他還是很( )。",
+            options: ["樂觀", "絕望", "震驚"],
+            answer: "樂觀",
+            explain: "「樂觀」指對事情抱持正面看法。"
+        },
+        {
+            q: "他們為了一點小事( )了，很久沒說話了。",
+            options: ["撕破臉", "泡湯了", "告知"],
+            answer: "撕破臉",
+            explain: "「撕破臉」指不顧情面，公開翻臉。"
+        },
+        {
+            q: "謝謝你告知我工作內容，現在我心裡( )，不那麼緊張了。",
+            options: ["有個底", "悲觀", "絕望"],
+            answer: "有個底",
+            explain: "「有個底」指心裡有把握或了解情況。"
+        },
+        {
+            q: "聽到家人都平安，他才覺得( )。",
+            options: ["安心", "震驚", "樂觀"],
+            answer: "安心",
+            explain: "「安心」指心情安定，沒有掛念。"
+        },
+
+        // --- 第二部分：L8L9 綜合詞彙 (25題) ---
+        {
+            q: "她是老闆的太太，大家都叫她＿＿＿＿。",
+            options: ["老闆", "老闆娘", "同事"],
+            answer: "老闆娘",
+            explain: "老闆的太太稱為「老闆娘」。"
+        },
+        {
+            q: "他最近想＿＿＿＿，所以一直在找新工作。",
+            options: ["電訪", "跳槽", "備課"],
+            answer: "跳槽",
+            explain: "「跳槽」指換工作，離開原本的公司。"
+        },
+        {
+            q: "這個＿＿＿＿有很多成員，每年都會聚在一起。",
+            options: ["家族", "路線", "畫面"],
+            answer: "家族",
+            explain: "「家族」指以血緣關係為基礎的團體，成員較多。"
+        },
+        {
+            q: "老師正在準備新的＿＿＿＿，下週要用。",
+            options: ["教材", "監視器", "內線"],
+            answer: "教材",
+            explain: "「教材」是教學用的材料或書籍。"
+        },
+        {
+            q: "他常常想＿＿＿＿上司，希望被注意到。",
+            options: ["擺臉色", "討好", "撕破臉"],
+            answer: "討好",
+            explain: "「討好」指為了讓別人喜歡而刻意做些好事。"
+        },
+        {
+            q: "他是一個很＿＿＿＿的老師，從不偏心。",
+            options: ["親近", "公正", "麻煩"],
+            answer: "公正",
+            explain: "「公正」指公平正直，沒有偏私。"
+        },
+        {
+            q: "孩子們很＿＿＿＿他，常常圍在他身邊。",
+            options: ["親近", "酸言酸語", "為難"],
+            answer: "親近",
+            explain: "「親近」指關係密切，喜歡接近。"
+        },
+        {
+            q: "不要在公司裡傳＿＿＿＿，會影響同事關係。",
+            options: ["本土", "是非", "鐘點"],
+            answer: "是非",
+            explain: "「是非」指別人的閒話或糾紛。"
+        },
+        {
+            q: "這是＿＿＿＿文化的一部分，和外國不一樣。",
+            options: ["假想敵", "本土", "內線"],
+            answer: "本土",
+            explain: "「本土」指本地的、在地的。"
+        },
+        {
+            q: "他把同事當成＿＿＿＿，什麼事都不信任。",
+            options: ["假想敵", "老闆娘", "教材"],
+            answer: "假想敵",
+            explain: "「假想敵」指想像中的競爭對手。"
+        },
+        {
+            q: "他在公司裡＿＿＿＿，很多事情都能決定。",
+            options: ["握有大權", "勾心鬥角", "酸言酸語"],
+            answer: "握有大權",
+            explain: "「握有大權」指掌握很大的權力。"
+        },
+        {
+            q: "我非常＿＿＿＿他，所以把工作交給他。",
+            options: ["信賴", "申訴", "為難"],
+            answer: "信賴",
+            explain: "「信賴」指信任並依靠。"
+        },
+        {
+            q: "不要對客人＿＿＿＿，這樣很不禮貌。",
+            options: ["擺臉色", "挺", "准"],
+            answer: "擺臉色",
+            explain: "「擺臉色」指表現出不高興的表情給人看。"
+        },
+        {
+            q: "老師正在＿＿＿＿，請不要打擾他。",
+            options: ["備課", "電訪", "夾"],
+            answer: "備課",
+            explain: "「備課」指老師準備上課的內容。"
+        },
+        {
+            q: "他說話常常＿＿＿＿，讓人聽了不舒服。",
+            options: ["公正", "酸言酸語", "親近"],
+            answer: "酸言酸語",
+            explain: "「酸言酸語」指諷刺、挖苦別人的話。"
+        },
+        {
+            q: "我們下午要＿＿＿＿三位客人，確認資料。",
+            options: ["電訪", "申訴", "備課"],
+            answer: "電訪",
+            explain: "「電訪」指透過電話進行訪問。"
+        },
+        {
+            q: "老師不＿＿＿＿我們上課用手機。",
+            options: ["准", "挺", "信賴"],
+            answer: "准",
+            explain: "「准」是允許、許可的意思。"
+        },
+        {
+            q: "他按照＿＿＿＿計費，一小時多少錢。",
+            options: ["路線", "鐘點", "內線"],
+            answer: "鐘點",
+            explain: "「鐘點」指小時，常用於計算時間或工資。"
+        },
+        {
+            q: "父母的＿＿＿＿，我們一輩子都不能忘。",
+            options: ["辛勞", "本土", "畫面"],
+            answer: "辛勞",
+            explain: "「辛勞」指辛苦勞累。"
+        },
+        {
+            q: "門口有＿＿＿＿，所以比較安全。",
+            options: ["教材", "監視器", "路線"],
+            answer: "監視器",
+            explain: "「監視器」是用來監控畫面的設備。"
+        },
+        {
+            q: "在公司內有事直接打＿＿＿＿找同事，不用打手機。",
+            options: ["鐘點", "內線", "電訪"],
+            answer: "內線",
+            explain: "「內線」指公司或組織內部的電話線路。"
+        },
+        {
+            q: "這個＿＿＿＿很清楚，可以看出細節。",
+            options: ["家族", "畫面", "是非"],
+            answer: "畫面",
+            explain: "「畫面」指螢幕或照片上呈現的影像。"
+        },
+        {
+            q: "如果有問題，可以向公司＿＿＿＿。",
+            options: ["申訴", "擺臉色", "跳槽"],
+            answer: "申訴",
+            explain: "「申訴」指說明理由，提出不滿或要求。"
+        },
+        {
+            q: "我很＿＿＿＿你，有需要我會幫忙。",
+            options: ["挺", "夾", "討好"],
+            answer: "挺",
+            explain: "「挺」在口語中表示支持、幫助。"
+        },
+        {
+            q: "同事之間如果＿＿＿＿，工作很難順利。",
+            options: ["勾心鬥角", "親近", "公正"],
+            answer: "勾心鬥角",
+            explain: "「勾心鬥角」指彼此算計，明爭暗鬥。"
+        }
+    ];
+
+    // 初始化頁面
+    function initQuiz() {
+        const form = document.getElementById('quiz-form');
+        
+        questions.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            
+            // 題目文字
+            const qText = document.createElement('div');
+            qText.className = 'question-text';
+            qText.innerText = (index + 1) + ". " + q.q;
+            card.appendChild(qText);
+
+            // 選項容器
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'options-group';
+
+            q.options.forEach(opt => {
+                const label = document.createElement('label');
+                label.className = 'option-label';
+                
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = 'q' + index;
+                radio.value = opt;
+                
+                label.appendChild(radio);
+                label.appendChild(document.createTextNode(opt));
+                optionsDiv.appendChild(label);
+            });
+            card.appendChild(optionsDiv);
+
+            // 回饋區域
+            const feedback = document.createElement('div');
+            feedback.id = 'feedback-' + index;
+            feedback.className = 'feedback';
+            card.appendChild(feedback);
+
+            form.appendChild(card);
+        });
+    }
+
+    // 檢查答案
+    function checkAnswers() {
+        let score = 0;
+        const total = questions.length;
+        const submitBtn = document.querySelector('.btn-submit');
+        
+        questions.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const feedbackDiv = document.getElementById(`feedback-${index}`);
+            
+            feedbackDiv.style.display = 'block';
+            feedbackDiv.className = 'feedback'; // Reset classes
+
+            if (selected) {
+                if (selected.value === q.answer) {
+                    score++;
+                    feedbackDiv.classList.add('correct');
+                    feedbackDiv.innerHTML = `<strong>答對了！</strong><span class="explanation">${q.explain}</span>`;
+                    selected.parentElement.style.backgroundColor = '#d4edda';
+                    selected.parentElement.style.borderColor = '#28a745';
+                } else {
+                    feedbackDiv.classList.add('incorrect');
+                    feedbackDiv.innerHTML = `<strong>答錯了。</strong>正確答案是：${q.answer}<br><span class="explanation">${q.explain}</span>`;
+                    selected.parentElement.style.backgroundColor = '#f8d7da';
+                    selected.parentElement.style.borderColor = '#dc3545';
+                }
+            } else {
+                feedbackDiv.classList.add('incorrect');
+                feedbackDiv.innerHTML = `<strong>未作答。</strong>正確答案是：${q.answer}<br><span class="explanation">${q.explain}</span>`;
+            }
+        });
+
+        // 顯示分數
+        const scoreArea = document.getElementById('score-area');
+        const scoreText = document.getElementById('score-text');
+        scoreArea.style.display = 'block';
+        
+        const percentage = Math.round((score / total) * 100);
+        scoreText.innerHTML = `你的得分：${score} / ${total} (${percentage}%)`;
+
+        // 捲動到底部
+        scoreArea.scrollIntoView({ behavior: 'smooth' });
+        
+        // 禁用按鈕
+        submitBtn.disabled = true;
+        submitBtn.innerText = '測驗已完成';
+    }
+
+    // 啟動
+    initQuiz();
+</script>
+
+</body>
+</html>
