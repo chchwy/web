@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>課文練習：讓品牌變年輕</title>
+    <style>
+        body {
+            font-family: "Microsoft JhengHei", Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #fdfdfd;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 15px;
+        }
+        p.instruction {
+            text-align: center;
+            font-size: 1.1em;
+            color: #555;
+            background-color: #e8f6f3;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .section-title {
+            background-color: #3498db;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 35px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .question-box {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .question-text {
+            font-weight: bold;
+            font-size: 1.15em;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 12px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background 0.2s;
+            border: 1px solid transparent;
+        }
+        .options label:hover {
+            background-color: #f0f8ff;
+            border-color: #b0d4f1;
+        }
+        input[type="radio"] {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+        .result-area {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 50px;
+        }
+        button {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.3em;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #219150;
+            transition: transform 0.1s;
+        }
+        button:hover {
+            background-color: #2ecc71;
+        }
+        button:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+        .feedback {
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 1.1em;
+            display: none;
+            padding: 5px;
+        }
+        .correct { color: #27ae60; }
+        .incorrect { color: #e74c3c; }
+        .explanation {
+            font-size: 1em;
+            color: #555;
+            margin-top: 10px;
+            display: none;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 5px solid #bbb;
+            border-radius: 4px;
+        }
+        .explanation strong {
+            color: #e67e22;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>閱讀練習：讓品牌變年輕</h1>
+    <p class="instruction">請讀一讀下面的對話，然後選出正確的答案。</p>
+
+    <div class="section-title">第一段：為什麼要開會？</div>
+
+    <div class="question-box" id="q1">
+        <div class="question-text">1. 經理陳永慶為什麼要找大家來開會？</div>
+        <div class="options">
+            <label><input type="radio" name="q1" value="A"> A. 慶祝公司賣得很好</label>
+            <label><input type="radio" name="q1" value="B"> B. 討論怎麼讓老品牌變年輕</label>
+            <label><input type="radio" name="q1" value="C"> C. 討論為什麼以前失敗了</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="explanation"><strong>說明：</strong>文章說，雖然以前成績很好，但現在「老字號」變成了一種負擔（包袱），所以經理開會討論「如何加入年輕的元素」。</div>
+    </div>
+
+    <div class="question-box" id="q2">
+        <div class="question-text">2. 關於讓品牌變年輕，何平有什麼想法？</div>
+        <div class="options">
+            <label><input type="radio" name="q2" value="A"> A. 拍微電影或請明星在網路上介紹</label>
+            <label><input type="radio" name="q2" value="B"> B. 保持原來的樣子，不要隨便改變</label>
+            <label><input type="radio" name="q2" value="C"> C. 不要用網路，要在商店裡賣</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="explanation"><strong>說明：</strong>何平說他看過別人用「微電影」或請「形象陽光的明星」在網路上示範新吃法，覺得這樣很有用。</div>
+    </div>
+
+    <div class="section-title">第二段：找明星還是換包裝？</div>
+
+    <div class="question-box" id="q3">
+        <div class="question-text">3. 黃淑華覺得「找名人代言」怎麼樣？</div>
+        <div class="options">
+            <label><input type="radio" name="q3" value="A"> A. 認為只要有名人代言，產品一定會大賣</label>
+            <label><input type="radio" name="q3" value="B"> B. 非常反對，認為完全沒有任何效果</label>
+            <label><input type="radio" name="q3" value="C"> C. 擔心形象不符或預算太高</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="explanation"><strong>說明：</strong>黃淑華覺得這雖然可以帶來話題，但也可能有問題（例如形象不合），如果花了很多錢卻沒效果就不好了。</div>
+    </div>
+
+    <div class="question-box" id="q4">
+        <div class="question-text">4. 范姜文建議的「折衷方案」是什麼？</div>
+        <div class="options">
+            <label><input type="radio" name="q4" value="A"> A. 開發全新的飲料口味</label>
+            <label><input type="radio" name="q4" value="B"> B. 在老產品的包裝上印上網路流行語</label>
+            <label><input type="radio" name="q4" value="C"> C. 把產品的名字改成英文</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="explanation"><strong>說明：</strong>范姜文建議換新包裝，像是在老牌飲料上印「高富帥」、「文藝青年」這些網路流行語。</div>
+    </div>
+
+    <div class="question-box" id="q5">
+        <div class="question-text">5. 陳永慶為什麼稱讚范姜文是「箇中好手」？</div>
+        <div class="options">
+            <label><input type="radio" name="q5" value="A"> A. 因為他的方法既吸引年輕人，又保留了特色</label>
+            <label><input type="radio" name="q5" value="B"> B. 因為他很會發明新的流行語</label>
+            <label><input type="radio" name="q5" value="C"> C. 因為他不想改變，比較省錢</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="explanation"><strong>說明：</strong>陳永慶覺得這個方法很好，因為年輕人喜歡，又沒有失去產品原本的特色。</div>
+    </div>
+
+    <div class="section-title">第三段：用網路賣東西</div>
+
+    <div class="question-box" id="q6">
+        <div class="question-text">6. 何平覺得網路行銷（例如直播）有什麼好處？</div>
+        <div class="options">
+            <label><input type="radio" name="q6" value="A"> A. 東西會變得比較便宜</label>
+            <label><input type="radio" name="q6" value="B"> B. 買東西很方便，不用去高級店面減少購物壓力</label>
+            <label><input type="radio" name="q6" value="C"> C. 網路上的東西品質比較好</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="explanation"><strong>說明：</strong>何平說，去高級（奢華）的店面買東西會有壓力，但在家用手機看直播，「按個鍵」就能買，很輕鬆。</div>
+    </div>
+
+    <div class="question-box" id="q7">
+        <div class="question-text">7. 聽到「多角化經營」時，經理陳永慶怎麼說？</div>
+        <div class="options">
+            <label><input type="radio" name="q7" value="A"> A. 要很小心，不要跑到不熟悉的領域</label>
+            <label><input type="radio" name="q7" value="B"> B. 這是最好的辦法，馬上開始做</label>
+            <label><input type="radio" name="q7" value="C"> C. 這個方法太過時了，不要用</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="explanation"><strong>說明：</strong>陳永慶提醒大家要小心，因為如果跑到自己不熟悉的地方（領域），可能會遇到危險（危機）。</div>
+    </div>
+
+    <div class="section-title">第四段：失敗的例子與結論</div>
+
+    <div class="question-box" id="q8">
+        <div class="question-text">8. 那家玩具公司為什麼會失敗？</div>
+        <div class="options">
+            <label><input type="radio" name="q8" value="A"> A. 因為他們沒有做網路直播</label>
+            <label><input type="radio" name="q8" value="B"> B. 因為他們跑去賣手機、開遊樂園，做太多事</label>
+            <label><input type="radio" name="q8" value="C"> C. 因為他們的包裝太舊了</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="explanation"><strong>說明：</strong>何平說那家公司除了賣玩具，還去賣飲料、手機，甚至開「主題樂園」，結果失敗了。</div>
+    </div>
+
+    <div class="question-box" id="q9">
+        <div class="question-text">9. 范姜文覺得那家公司虧錢的原因是什麼？</div>
+        <div class="options">
+            <label><input type="radio" name="q9" value="A"> A. 忘了照顧原本的專業，客人就跑掉了</label>
+            <label><input type="radio" name="q9" value="B"> B. 因為他們的產品賣得太貴</label>
+            <label><input type="radio" name="q9" value="C"> C. 因為別的公司比他們強</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="explanation"><strong>說明：</strong>范姜文說他們忽略了「本業」（原本的專業），結果原本的客戶都流失（跑掉）了。</div>
+    </div>
+
+    <div class="question-box" id="q10">
+        <div class="question-text">10. 會議結束時，經理請大家做什麼？</div>
+        <div class="options">
+            <label><input type="radio" name="q10" value="A"> A. 馬上去蓋一座主題樂園</label>
+            <label><input type="radio" name="q10" value="B"> B. 整理出可行的計畫，下次繼續討論</label>
+            <label><input type="radio" name="q10" value="C"> C. 今天討論沒有結果，不用再開會了</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="explanation"><strong>說明：</strong>陳永慶請大家把討論的結果整理一下，想出更可行的方法，下次再繼續動腦想一想（腦力激盪）。</div>
+    </div>
+
+    <div class="result-area">
+        <button onclick="checkAnswers()">檢查答案 (Check Answers)</button>
+    </div>
+
+    <script>
+        function checkAnswers() {
+            // 正確答案設定
+            const answers = {
+                q1: "B",
+                q2: "A",
+                q3: "C",
+                q4: "B",
+                q5: "A",
+                q6: "B",
+                q7: "A",
+                q8: "B",
+                q9: "A",
+                q10: "B"
+            };
+
+            let score = 0;
+            let total = 10;
+
+            for (let i = 1; i <= total; i++) {
+                const qId = "q" + i;
+                const radios = document.getElementsByName(qId);
+                let selectedVal = null;
+                
+                // 找出使用者選的選項
+                for (const radio of radios) {
+                    if (radio.checked) {
+                        selectedVal = radio.value;
+                        break;
+                    }
+                }
+
+                const feedbackDiv = document.querySelector("#" + qId + " .feedback");
+                const explanationDiv = document.querySelector("#" + qId + " .explanation");
+                
+                // 清除舊樣式
+                feedbackDiv.className = "feedback";
+                explanationDiv.style.display = "block"; // 顯示解析
+
+                if (selectedVal === answers[qId]) {
+                    score++;
+                    feedbackDiv.innerText = "答對了！ (Correct)";
+                    feedbackDiv.classList.add("correct");
+                } else {
+                    feedbackDiv.innerText = "答錯了。正確答案是 " + answers[qId];
+                    feedbackDiv.classList.add("incorrect");
+                }
+            }
+
+            alert("測驗結束！你的得分是： " + score + " / " + total);
+        }
+    </script>
+</body>
+</html>
